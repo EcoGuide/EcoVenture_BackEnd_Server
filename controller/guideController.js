@@ -1,5 +1,5 @@
 import { Guide } from "../model/guide.js";
-
+import { ReservationGuide } from "../model/reservationGuide.js";
 export default {
   createGuide: async (req, res) => {
     try {
@@ -111,4 +111,59 @@ export default {
       });
     }
   },
+
+  fetchGuideReservations: async (req, res) => {
+    try {
+      const guideId = req.params.id;
+      const reservations = await ReservationGuide.find({ guideId });
+
+      return res.status(200).json({
+        statusCode: 200,
+        message: "Guide reservations fetched successfully",
+        reservations,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        statusCode: 500,
+        message: "Internal server error",
+      });
+    }
+  },
+
+  addGuideReservation: async (req, res) => {
+    try {
+      const { guideId, userId, hoursBooked, location } = req.body;
+
+      // Check if the guide exists
+      const guide = await Guide.findById(guideId);
+      if (!guide) {
+        return res.status(404).json({
+          statusCode: 404,
+          message: "Guide not found",
+        });
+      }
+
+      const reservation = await ReservationGuide.create({
+        guideId,
+        userId,
+        hoursBooked,
+        location,
+      });
+
+      return res.status(201).json({
+        statusCode: 201,
+        message: "Reservation added successfully",
+        reservation,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        statusCode: 500,
+        message: "Internal server error",
+      });
+    }
+  },
+
+
 };

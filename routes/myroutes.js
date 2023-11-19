@@ -9,4 +9,6 @@ router.get("/guide/:id", guideController.fetchGuide);
 router.get("/guides", guideController.fetchAllGuides);
 router.delete("/guide/:id", guideController.deleteGuide);
 
+router.get('/guides/:id/reservations', guideController.fetchGuideReservations);
+router.post('/guides/:id/reservations', guideController.addGuideReservation);
 export default router;
