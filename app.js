@@ -3,15 +3,21 @@ console.log("Backend Mobile App");
 import express from 'express';
 import mongoose from 'mongoose';
  import cookieParser from 'cookie-parser';
+ import cors from 'cors';
+ import { fileURLToPath } from "url";
 import morgan from 'morgan';
+import path from 'path';
 import { serveSwaggerUI, setupSwaggerUI } from './Swagger_Config.js';
 import authRoutes from './routes/authRoutes.js'
+import connectDb from "./config/db.js";
+import router from "./routes/myroutes.js";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
-
+const hostname = process.env.SERVERURL;
+const port = process.env.SERVERPORT;
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json());
@@ -19,8 +25,8 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 import twilio from 'twilio'
 import Message from './model/message.js'
-const port = 3000;
-const dbURI = 'mongodb+srv://fedibr:fedibr28@cluster0.38xgvkm.mongodb.net/mongodb';
+
+//const dbURI = 'mongodb+srv://fedibr:fedibr28@cluster0.38xgvkm.mongodb.net/mongodb';
 const client = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 import dotenv from 'dotenv';
 
@@ -46,17 +52,19 @@ async function sendMessage(to, body) {
     console.error('Error sending message:', error);
   }
 }
-
+/*
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((result) => {
-    console.log('Connecté à la base de données MongoDB');
-    app.listen(port, () => {
-      console.log(`Serveur en cours d'exécution sur le port ${port}`);
+    .then((result) => {
+        console.log('Connecté à la base de données MongoDB');
+        app.listen(port, () => {
+            console.log(`Serveur en cours d'exécution sur le port ${port}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Erreur de connexion à la base de données MongoDB :', err);
     });
-  })
-  .catch((err) => {
-    console.error('Erreur de connexion à la base de données MongoDB :', err);
-  });
+*/
+
  
 app.get('/api', (req, res) => {
   res.sendFile(path.join(__dirname, "../View/facebook.html"));
@@ -84,3 +92,42 @@ app.use(
 
 app.use(authRoutes);
 app.use('/api-docs', serveSwaggerUI, setupSwaggerUI);
+
+
+
+
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
+dotenv.config();
+
+
+
+//info on req : GET /route ms -25
+app.use(morgan("dev"));
+
+app.use(cors(corsOptions));
+connectDb();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", router);
+
+app.get("/api/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build/index.html"), function (err) {
+    if (err) {
+      res.status(500).send(err);
+      console.log(err);
+    }
+  });
+});
+app.use("/public/images", express.static(path.join(__dirname, "public/images")));
+
+// app.use(NotFoundError);
+// app.use(errorHandler);
+
+app.listen(port, hostname, () => {
+  console.log(`Server running on ${hostname}:${port}`);
+});
