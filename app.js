@@ -6,8 +6,11 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import { serveSwaggerUI, setupSwaggerUI } from './Swagger_Config.js';
 import authRoutes from './routes/authRoutes.js'
+
 const app = express();
-  
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 app.use(morgan('dev'));
 app.use(express.static('public'));
@@ -73,6 +76,10 @@ app.post('/api/send-sms', async (req, res) => {
 
 
 
+app.use(
+  "/public/images",
+  express.static(path.join(__dirname, "public/images"))
+);
 
 
 app.use(authRoutes);
