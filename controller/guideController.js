@@ -8,7 +8,6 @@ export default {
         fullname,
         location,
         description,
-        image,
         reviews,
         price,
         discountCode,
