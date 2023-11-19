@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import verifyToken  from '../Midlleware/Authmiddleware.js';
 import verifyRole  from '../Midlleware/IsAdmin.js';
 import multer from '../Midlleware/multer-config.js';
+import { singleImage } from '../Midlleware/multer-config.js';
+
 import passport from '../Midlleware/passport.js';
 // import upload from '../Midllware/multer-config.js';
 import User from '../model/User.js'
