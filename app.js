@@ -83,13 +83,6 @@ app.post('/api/send-sms', async (req, res) => {
 });
 
 
-
-app.use(
-  "/public/images",
-  express.static(path.join(__dirname, "public/images"))
-);
-
-
 app.use(authRoutes);
 app.use('/api-docs', serveSwaggerUI, setupSwaggerUI);
 
@@ -123,7 +116,7 @@ app.get("/api/*", function (req, res) {
     }
   });
 });
-app.use("/public/images", express.static(path.join(__dirname, "public/images")));
+app.use("/Public/image", express.static(path.join(__dirname, "Public/image")));
 
 // app.use(NotFoundError);
 // app.use(errorHandler);

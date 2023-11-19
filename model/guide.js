@@ -28,6 +28,10 @@ const guideSchema = new Schema(
     discountCode: {
       type: Number,
     },
+    reservations: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "ReservationGuide" },
+    ], // Reference to ReservationGuide documents
+  
   },
   {
     timestamps: true,

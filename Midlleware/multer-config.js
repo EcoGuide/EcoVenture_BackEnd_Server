@@ -1,6 +1,6 @@
-import multer, { diskStorage } from "multer"; // Importer multer
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import multer, { diskStorage } from "multer";
+ import { join, dirname } from "path";
+ import { fileURLToPath } from "url";
 
 // Les extensions à accepter
 const MIME_TYPES = {
@@ -39,7 +39,7 @@ export const singleImage = multer({
       const __dirname = dirname(fileURLToPath(import.meta.url));
       callback(null, join(__dirname, ".." + process.env.IMGURL));
       //for docker
-      // callback(null, "/public/images");
+    //  callback(null, "/Public/image");
     },
     filename: (req, file, callback) => {
       callback(null, file.originalname);
@@ -52,4 +52,4 @@ export const singleImage = multer({
     }
     cb(undefined, true);
   },
-}).single("image");
+}).single("image"); 
