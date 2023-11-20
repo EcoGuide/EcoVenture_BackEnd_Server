@@ -115,7 +115,7 @@ export default {
   fetchGuideReservations: async (req, res) => {
     try {
       const guideId = req.params.id;
-      const reservations = await ReservationGuide.find({ guideId });
+      const reservations = await ReservationGuide.find({ guideId }).populate('userId');
 
       return res.status(200).json({
         statusCode: 200,
@@ -133,7 +133,10 @@ export default {
 
   addGuideReservation: async (req, res) => {
     try {
-      const { guideId, userId, hoursBooked, location } = req.body;
+      const guideId = req.params.id;
+      const {  userId, hoursBooked, location } = req.body;
+
+      console.log(guideId)
 
       // Check if the guide exists
       const guide = await Guide.findById(guideId);
