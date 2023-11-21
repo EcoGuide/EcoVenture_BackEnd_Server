@@ -134,10 +134,8 @@ export default {
   addGuideReservation: async (req, res) => {
     try {
       const guideId = req.params.id;
-      const {  userId, hoursBooked, location } = req.body;
-
-      console.log(guideId)
-
+      const { userId, hoursBooked, location, bookedDates } = req.body;
+  
       // Check if the guide exists
       const guide = await Guide.findById(guideId);
       if (!guide) {
@@ -146,14 +144,15 @@ export default {
           message: "Guide not found",
         });
       }
-
+  
       const reservation = await ReservationGuide.create({
         guideId,
         userId,
         hoursBooked,
         location,
+        bookedDates, // Include the bookedDates array from the request body
       });
-
+  
       return res.status(201).json({
         statusCode: 201,
         message: "Reservation added successfully",
@@ -167,6 +166,6 @@ export default {
       });
     }
   },
-
+  
 
 };
