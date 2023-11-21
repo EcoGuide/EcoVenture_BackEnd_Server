@@ -20,7 +20,7 @@ export default {
                 });
             }
             const reservation = await ReservationH.create({
-                chambre,
+                chambreId,
                 userId,
                 startDate,
                 nbdays,
