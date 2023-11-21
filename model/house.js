@@ -29,10 +29,7 @@ const houseSchema = new Schema(
         nbChambre: {
             type: Number,
             require: true,
-        },
-        reservationHouse: [
-            { type: mongoose.Schema.Types.ObjectId, ref: "ReservationHouse" },
-        ],
+        }
     }
 );
 

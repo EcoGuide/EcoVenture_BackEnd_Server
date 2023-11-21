@@ -28,7 +28,7 @@ const chambreSchema = new Schema(
             type: String,
             required: true,
         },
-        reservationsH: [
+        reservations: [
             { type: mongoose.Schema.Types.ObjectId, ref: "ReservationH" },
         ],
     });

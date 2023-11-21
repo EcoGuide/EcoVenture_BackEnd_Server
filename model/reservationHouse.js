@@ -7,11 +7,7 @@ const reservationHouseSchema = new Schema(
         startDate: { type: Date, required: true },
         nbdays: { type: Number, required: true },
         totalPrice: { type: Number, required: true },
-        house: {
-            type: Schema.Types.ObjectId,
-            ref: "House",
-            required: true,
-        },
+        house: { type: Schema.Types.ObjectId, ref: "House" },
         userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User", // Assuming you have a User model
