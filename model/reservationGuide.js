@@ -10,7 +10,7 @@ const reservationGuideSchema = new Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Assuming you have a User model
+      ref: "User",
       required: true,
     },
     location: {
@@ -20,6 +20,10 @@ const reservationGuideSchema = new Schema(
     hoursBooked: {
       type: Number,
       required: true,
+    },
+    bookedDates: {
+      type: [Date], // Array of booked dates
+      default: [],
     },
   },
   {
