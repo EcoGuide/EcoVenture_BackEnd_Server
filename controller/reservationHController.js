@@ -142,7 +142,7 @@ export default {
 
     getAllReservationsWithHotelDetails: async (req, res) => {
         try {
-            // Use the populate method to include details from the referenced models
+            // Use the populate method to include details from the referenced model
             const reservations = await ReservationH.find()
                 .populate({
                     path: 'chambre', // Assuming your ReservationH model has a field named "chambre" referencing the Chambre model
