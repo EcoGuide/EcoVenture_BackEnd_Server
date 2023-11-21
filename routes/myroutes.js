@@ -6,6 +6,7 @@ import houseController from "../controller/houseController.js";
 import reservationHouseController from "../controller/reservationHouseController.js";
 import reservationHController from "../controller/reservationHController.js";
 import { singleImage } from "../Midlleware/multer-config.js";
+import expeditionController from "../controller/expeditionController.js";
 
 const router = express.Router();
 
@@ -40,5 +41,9 @@ router.post('/reservationHouse/:id/add', reservationHouseController.createreserv
 router.get('/reservationHouse/:id', reservationHouseController.getreservationHouseById);
 router.get('/reservationHouse', reservationHouseController.getAllreservationHouse);
 router.get('/reservationHouses/:id', reservationHouseController.fetchHouseReservations);
+// expedition
+router.get('/expedition/all', expeditionController.getExpeditions);
+router.get('/expedition', expeditionController.getExpedition);
+router.post('/expedition', expeditionController.createExpedition);
 
 export default router;
