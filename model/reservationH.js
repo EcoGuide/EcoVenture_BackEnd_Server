@@ -4,11 +4,8 @@ const { Schema, model } = mongoose;
 const reservationHSchema = new Schema(
 
     {
-        startDate: { type: Date, required: true },
-        nbdays: { type: Number, required: true },
-        totalPrice: { type: Number, required: true },
-        chambre: {
-            type: Schema.Types.ObjectId,
+        chambreId: {
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Chambre",
             required: true,
         },
@@ -17,6 +14,11 @@ const reservationHSchema = new Schema(
             ref: "User", // Assuming you have a User model
             required: true,
         },
+        startDate: { type: Date, required: true },
+        nbdays: { type: Number, required: true },
+        totalPrice: { type: Number, required: true },
+        chambres: { type: Schema.Types.ObjectId, ref: "Chambre" },
+
     },
     {
         timestamps: true,
