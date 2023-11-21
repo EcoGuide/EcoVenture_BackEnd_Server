@@ -2,9 +2,9 @@ console.log("Backend Mobile App");
 
 import express from 'express';
 import mongoose from 'mongoose';
- import cookieParser from 'cookie-parser';
- import cors from 'cors';
- import { fileURLToPath } from "url";
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import { fileURLToPath } from "url";
 import morgan from 'morgan';
 import path from 'path';
 import { serveSwaggerUI, setupSwaggerUI } from './Swagger_Config.js';
@@ -36,7 +36,7 @@ async function sendMessage(to, body) {
     const message = await client.messages.create({
       to: to,
       from: process.env.TWILIO_PHONE_NUMBER,
-      body: body  
+      body: body
     });
 
     const messageRecord = new Message({
@@ -65,14 +65,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     });
 */
 
- 
+
 app.get('/api', (req, res) => {
   res.sendFile(path.join(__dirname, "../View/facebook.html"));
 });
 
 app.post('/api/send-sms', async (req, res) => {
   const { to, body } = req.body;
-  
+
   try {
     await sendMessage(to, body);
     res.status(200).json({ message: 'SMS sent successfully' });
