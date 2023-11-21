@@ -1,22 +1,23 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-const expeditionScheme = new mongoose.Schema({
-    reference : String,
-    duration : Number,
-    fromStation : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'Station'
+const expeditionScheme = new Schema({
+    reference: String,
+    duration: Number,
+    fromStation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Station'
     },
-    toStation : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'Station'
+    toStation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Station'
     },
-    iterinaryExpeditions : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'IterinaryExpedition'
+    iterinaryExpeditions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'IterinaryExpedition'
     }]
 });
 
 const Expedition = mongoose.model('Expedition', expeditionScheme);
 
-module.exports = Expedition;
+export { Expedition };
